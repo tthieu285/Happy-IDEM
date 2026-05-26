@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy IDEM × GE — M&A Scenario Comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --border: #e4e2dc;
+  --border-strong: #ccc9c0;
+  --text-primary: #1c1b18;
+  --text-secondary: #5a5850;
+  --text-muted: #9e9b90;
+
+  --b1: #1b4f8a;
+  --b1-light: #e8f0fb;
+  --b1-mid: #c4d7f5;
+
+  --b2: #1a6644;
+  --b2-light: #e6f5ed;
+  --b2-mid: #b8e2cb;
+
+  --b3: #8b2020;
+  --b3-light: #fceaea;
+  --b3-mid: #f0bcbc;
+
+  --label-w: 200px;
+  --col-w: 1fr;
+  --row-pad: 14px 16px;
+  --radius: 10px;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  padding: 40px 24px 72px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ─── LANGUAGE TOGGLE ─── */
+body.lang-vi .en { display: none !important; }
+body.lang-en .vi { display: none !important; }
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--text-primary);
+  color: #fff;
+  border: none;
+  padding: 7px 15px;
+  border-radius: 999px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.lang-toggle:hover { background: #333; }
+.lang-toggle:active { transform: scale(0.97); }
+.lang-toggle .flag { font-size: 15px; line-height: 1; }
+
+/* ─── HEADER ─── */
+.hdr {
+  max-width: 1200px;
+  margin: 0 auto 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding-bottom: 14px;
+  flex-wrap: wrap;
+}
+.hdr-left { display: flex; flex-direction: column; gap: 2px; }
+.hdr-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.hdr-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.hdr-right { display: flex; align-items: center; gap: 10px; }
+
+/* ─── OUTER WRAPPER ─── */
+.outer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* ─── COLUMN HEADER STRIP ─── */
+.col-headers {
+  display: grid;
+  grid-template-columns: var(--label-w) var(--col-w) var(--col-w) var(--col-w);
+  gap: 3px;
+}
+.col-headers .ch-blank { background: transparent; }
+.col-header {
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 16px 18px 14px;
+  position: relative;
+}
+.ch1 { background: var(--b1-light); border-top: 3px solid var(--b1); }
+.ch2 { background: var(--b2-light); border-top: 3px solid var(--b2); }
+.ch3 { background: var(--b3-light); border-top: 3px solid var(--b3); }
+
+.ch-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.ch1 .ch-num { color: var(--b1); }
+.ch2 .ch-num { color: var(--b2); }
+.ch3 .ch-num { color: var(--b3); }
+
+.ch-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; color: var(--text-primary); }
+.ch-sub  { font-size: 11.5px; color: var(--text-secondary); font-weight: 400; margin-bottom: 6px; line-height: 1.45; }
+.ch-when { font-size: 11px; color: var(--text-muted); font-style: italic; line-height: 1.45; }
+.rec-pill {
+  display: inline-block;
+  margin-top: 8px;
+  background: var(--b2);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+/* ─── SECTION LABEL ─── */
+.sec-label {
+  display: grid;
+  grid-template-columns: var(--label-w) var(--col-w) var(--col-w) var(--col-w);
+  gap: 3px;
+  margin-top: 10px;
+}
+.sec-label-cell {
+  grid-column: 1 / -1;
+  background: var(--text-primary);
+  color: #fff;
+  padding: 7px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 6px 6px 0 0;
+}
+
+/* ─── DATA ROWS ─── */
+.row {
+  display: grid;
+  grid-template-columns: var(--label-w) var(--col-w) var(--col-w) var(--col-w);
+  gap: 3px;
+}
+
+.cell-label {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-right: none;
+  padding: var(--row-pad);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.45;
+}
+.cell-label em {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--text-muted);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.cell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: var(--row-pad);
+  vertical-align: top;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.sec-last .cell-label { border-radius: 0 0 0 var(--radius); }
+.sec-last .cell:last-child { border-radius: 0 0 var(--radius) 0; }
+
+/* total row */
+.row-total .cell-label,
+.row-total .cell { font-weight: 600; background: #fafaf7; }
+.row-total .c1 { border-top: 2px solid var(--b1-mid); }
+.row-total .c2 { border-top: 2px solid var(--b2-mid); }
+.row-total .c3 { border-top: 2px solid var(--b3-mid); }
+
+.total-num { font-size: 16px; font-weight: 700; display: block; margin-bottom: 1px; }
+.c1 .total-num { color: var(--b1); }
+.c2 .total-num { color: var(--b2); }
+.c3 .total-num { color: var(--b3); }
+.total-sub { font-size: 11px; color: var(--text-muted); }
+
+/* ─── TAGS ─── */
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.t1 { background: var(--b1-mid); color: var(--b1); }
+.t2 { background: var(--b2-mid); color: var(--b2); }
+.t3 { background: var(--b3-mid); color: var(--b3); }
+.tg { background: var(--border); color: var(--text-secondary); }
+.ty { background: #fef3c7; color: #92400e; }
+
+/* ─── BULLETS ─── */
+.bl { list-style: none; padding: 0; margin-top: 4px; }
+.bl li {
+  padding: 2.5px 0 2.5px 14px;
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.bl li::before { content: '–'; position: absolute; left: 0; color: var(--text-muted); }
+
+/* earn-out mini table */
+.et { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 11.5px; }
+.et td {
+  padding: 4px 7px;
+  border-bottom: 1px solid var(--b3-mid);
+  color: var(--text-secondary);
+  background: var(--b3-light);
+}
+.et tr:last-child td { border-bottom: none; }
+.et td:last-child { text-align: right; font-weight: 700; color: var(--b3); white-space: nowrap; }
+
+/* risk */
+.r-low { color: var(--b2); font-weight: 700; }
+.r-mid { color: #b45309; font-weight: 700; }
+
+strong { color: var(--text-primary); }
+
+/* ─── BOTTOM 2-COL ─── */
+.bottom {
+  max-width: 1200px;
+  margin: 20px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.bcard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.bcard-hdr {
+  background: var(--text-primary);
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.bcard-body { padding: 0; }
+
+.clause-table { width: 100%; border-collapse: collapse; }
+.clause-table td {
+  padding: 9px 14px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.clause-table tr:last-child td { border-bottom: none; }
+.clause-table td:first-child {
+  font-weight: 600;
+  color: var(--text-primary);
+  width: 40%;
+  white-space: nowrap;
+}
+
+.tactic-list { list-style: none; padding: 0; }
+.tactic-list li {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+.tactic-list li:last-child { border-bottom: none; }
+.tactic-list li strong { color: var(--b1); }
+
+.warn-box {
+  margin: 0 14px 14px;
+  background: #fffbeb;
+  border-left: 3px solid #f59e0b;
+  padding: 10px 12px;
+  border-radius: 0 6px 6px 0;
+  font-size: 11.5px;
+  color: #78350f;
+  line-height: 1.6;
+}
+
+/* note strip for exchange rate */
+.fx-note {
+  max-width: 1200px;
+  margin: 0 auto 18px;
+  background: var(--b1-light);
+  border: 1px solid var(--b1-mid);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 11.5px;
+  color: var(--b1);
+  font-weight: 500;
+  display: none;
+}
+body.lang-en .fx-note { display: block; }
+
+@media (max-width: 680px) {
+  .bottom { grid-template-columns: 1fr; }
+  :root { --label-w: 130px; }
+}
+</style>
+</head>
+<body class="lang-vi">
+
+<div class="hdr">
+  <div class="hdr-left">
+    <span class="hdr-title">
+      <span class="vi">HAPPY IDEM × GOD'S EYES — So sánh 3 Kịch bản M&A</span>
+      <span class="en">HAPPY IDEM × GOD'S EYES — M&A Scenario Comparison</span>
+    </span>
+    <span class="hdr-meta">
+      <span class="vi">NỘI BỘ · THÁNG 5/2026</span>
+      <span class="en">INTERNAL · MAY 2026</span>
+    </span>
+  </div>
+  <div class="hdr-right">
+    <button class="lang-toggle" onclick="toggleLang()">
+      <span class="flag vi">🇺🇸</span>
+      <span class="flag en">🇻🇳</span>
+      <span class="vi">Switch to English</span>
+      <span class="en">Chuyển sang Tiếng Việt</span>
+    </button>
+  </div>
+</div>
+
+<div class="fx-note en">
+  💱 Exchange rate assumption: 100% of Happy IDEM = <strong>$100,000 USD</strong> = 2,650,000,000 VND (rate: 26,500 VND/USD)
+</div>
+
+<div class="outer">
+
+  <!-- COLUMN HEADERS -->
+  <div class="col-headers">
+    <div class="ch-blank"></div>
+    <div class="col-header ch1">
+      <div class="ch-num">
+        <span class="vi">KỊCH BẢN 01</span>
+        <span class="en">SCENARIO 01</span>
+      </div>
+      <div class="ch-name">
+        <span class="vi">Mua thẳng, vào ngay</span>
+        <span class="en">Direct Buy-In</span>
+      </div>
+      <div class="ch-sub">
+        <span class="vi">Share Purchase trực tiếp</span>
+        <span class="en">Direct Share Purchase</span>
+      </div>
+      <div class="ch-when">
+        <span class="vi">Khi founder sẵn sàng nhường kiểm soát, không kháng cự định giá</span>
+        <span class="en">When founder is ready to relinquish control with no valuation resistance</span>
+      </div>
+    </div>
+    <div class="col-header ch2">
+      <div class="ch-num">
+        <span class="vi">KỊCH BẢN 02</span>
+        <span class="en">SCENARIO 02</span>
+      </div>
+      <div class="ch-name">
+        <span class="vi">Vào bằng vốn, chuyển cổ phần sau</span>
+        <span class="en">Invest First, Convert Later</span>
+      </div>
+      <div class="ch-sub">Convertible Investment</div>
+      <div class="ch-when">
+        <span class="vi">Khi founder chưa có tư duy "bán công ty", muốn đồng hành trước</span>
+        <span class="en">When founder isn't ready to "sell the company" yet and prefers to partner first</span>
+      </div>
+      <span class="rec-pill">
+        <span class="vi">✦ Vào trước tiên</span>
+        <span class="en">✦ First Move</span>
+      </span>
+    </div>
+    <div class="col-header ch3">
+      <div class="ch-num">
+        <span class="vi">KỊCH BẢN 03</span>
+        <span class="en">SCENARIO 03</span>
+      </div>
+      <div class="ch-name">
+        <span class="vi">Mua ngay, trả theo kết quả</span>
+        <span class="en">Buy Now, Pay on Performance</span>
+      </div>
+      <div class="ch-sub">Earn-out</div>
+      <div class="ch-when">
+        <span class="vi">Khi founder tự định giá cao, muốn bán nhưng kỳ vọng lớn</span>
+        <span class="en">When founder self-values high, wants to sell but has big expectations</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 1: TÀI CHÍNH ══ -->
+  <div class="sec-label">
+    <div class="sec-label-cell">
+      <span class="vi">💰 CẤU TRÚC TÀI CHÍNH</span>
+      <span class="en">💰 FINANCIAL STRUCTURE</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Công cụ</span>
+      <span class="en">Structure</span>
+    </div>
+    <div class="cell c1">
+      <span class="tag t1">Share Purchase</span><br>
+      <span class="vi">Mua cổ phần trực tiếp khi ký SPA</span>
+      <span class="en">Direct share purchase upon SPA signing</span>
+    </div>
+    <div class="cell c2">
+      <span class="tag t2">Convertible Investment</span><br>
+      <span class="vi">Góp vốn → chuyển cổ phần sau 6 tháng</span>
+      <span class="en">Capital contribution → equity conversion after 6 months</span>
+    </div>
+    <div class="cell c3">
+      <span class="tag t3">Earn-out</span><br>
+      <span class="vi">Upfront + trả theo milestone 24 tháng</span>
+      <span class="en">Upfront + milestone-based payments over 24 months</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Cổ phần GE nhận</span>
+      <span class="en">GE Equity Stake</span>
+    </div>
+    <div class="cell c1">
+      <strong>60%</strong> —
+      <span class="vi">ngay khi ký</span>
+      <span class="en">upon signing</span>
+    </div>
+    <div class="cell c2">
+      <strong>51–60%</strong> —
+      <span class="vi">sau 6 tháng vận hành chung</span>
+      <span class="en">after 6 months of joint operations</span>
+    </div>
+    <div class="cell c3">
+      <strong>60%</strong> —
+      <span class="vi">ngay khi ký</span>
+      <span class="en">upon signing</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <div class="vi">Upfront đợt 1<em>Ngay khi ký</em></div>
+      <div class="en">Upfront Tranche 1<em>Upon signing</em></div>
+    </div>
+    <div class="cell c1">
+      <span class="vi"><strong>450 triệu VNĐ</strong></span>
+      <span class="en"><strong>$17,000</strong></span>
+    </div>
+    <div class="cell c2">
+      <div class="vi">
+        <strong>400 triệu VNĐ</strong> vốn góp giai đoạn 1<br>
+        <span style="font-size:11px;color:var(--text-muted)">Chưa mua cổ phần — khấu trừ vào giá mua sau</span>
+      </div>
+      <div class="en">
+        <strong>$15,100</strong> Phase 1 capital contribution<br>
+        <span style="font-size:11px;color:var(--text-muted)">Not an equity purchase — deducted from acquisition price later</span>
+      </div>
+    </div>
+    <div class="cell c3">
+      <span class="vi"><strong>400 triệu VNĐ</strong></span>
+      <span class="en"><strong>$15,100</strong></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <div class="vi">Upfront đợt 2<em>Sau 3 tháng</em></div>
+      <div class="en">Upfront Tranche 2<em>After 3 months</em></div>
+    </div>
+    <div class="cell c1">
+      <span class="vi"><strong>+450 triệu VNĐ</strong></span>
+      <span class="en"><strong>+$17,000</strong></span>
+    </div>
+    <div class="cell c2">
+      <span class="vi"><strong>+400 triệu VNĐ</strong></span>
+      <span class="en"><strong>+$15,100</strong></span>
+    </div>
+    <div class="cell c3">
+      <span class="vi"><strong>+400 triệu VNĐ</strong></span>
+      <span class="en"><strong>+$15,100</strong></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Thanh toán còn lại</span>
+      <span class="en">Remaining Payment</span>
+    </div>
+    <div class="cell c1">
+      <div class="vi">
+        <strong>+600 triệu</strong> sau 6 tháng<br>
+        <span style="font-size:11px;color:var(--text-muted)">Khi đủ 3 điều kiện chuyển giao</span>
+      </div>
+      <div class="en">
+        <strong>+$22,600</strong> after 6 months<br>
+        <span style="font-size:11px;color:var(--text-muted)">Upon fulfillment of 3 handover conditions</span>
+      </div>
+    </div>
+    <div class="cell c2">
+      <div class="vi">
+        <strong>+700 triệu</strong> khi chuyển đổi tháng 6<br>
+        <span style="font-size:11px;color:var(--text-muted)">Định giá cố định 2,5 tỷ × 60% = 1,5 tỷ − 800tr đã góp (400tr + 400tr) = 700tr còn lại</span><br>
+        <span style="font-size:11px;color:var(--text-muted)">Hoàn vốn + lãi 15%/năm nếu không CĐ</span>
+      </div>
+      <div class="en">
+        <strong>+$26,400</strong> at month 6 conversion<br>
+        <span style="font-size:11px;color:var(--text-muted)">Fixed valuation $94,300 × 60% = $56,600 − $30,200 total contributed ($15,100 + $15,100) = $26,400 remaining</span><br>
+        <span style="font-size:11px;color:var(--text-muted)">Capital return + 15%/year interest if no conversion</span>
+      </div>
+    </div>
+    <div class="cell c3">
+      <div class="vi">
+        <strong>+tối đa 1,2 tỷ</strong> theo milestone:
+        <table class="et">
+          <tr><td>Doanh thu năm 1 ≥ 3,5 tỷ</td><td>+300tr</td></tr>
+          <tr><td>Doanh thu năm 2 ≥ 5 tỷ</td><td>+400tr</td></tr>
+          <tr><td>Mở rộng ≥ 2 quận mới</td><td>+300tr</td></tr>
+          <tr><td>Hệ thống vận hành độc lập</td><td>+200tr</td></tr>
+        </table>
+      </div>
+      <div class="en">
+        <strong>+up to $45,300</strong> by milestone:
+        <table class="et">
+          <tr><td>Year 1 revenue ≥ $132K</td><td>+$11,300</td></tr>
+          <tr><td>Year 2 revenue ≥ $189K</td><td>+$15,100</td></tr>
+          <tr><td>Expand to ≥ 2 new districts</td><td>+$11,300</td></tr>
+          <tr><td>Independent operating system</td><td>+$7,500</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-total sec-last">
+    <div class="cell-label">
+      <span class="vi">Tổng GE chi tối đa</span>
+      <span class="en">GE Total Max Outlay</span>
+    </div>
+    <div class="cell c1">
+      <span class="vi">
+        <span class="total-num">1,5 tỷ VNĐ</span>
+        <span class="total-sub">~$57K · Implied 2,5 tỷ toàn cty</span>
+      </span>
+      <span class="en">
+        <span class="total-num">$56,600</span>
+        <span class="total-sub">~$57K · Implied $94,300 total company value</span>
+      </span>
+    </div>
+    <div class="cell c2">
+      <span class="vi">
+        <span class="total-num">1,5 tỷ VNĐ</span>
+        <span class="total-sub">~$57K · Implied 2,5 tỷ toàn cty · 3 đợt: 400tr + 400tr + 700tr</span>
+      </span>
+      <span class="en">
+        <span class="total-num">$56,600</span>
+        <span class="total-sub">~$57K · Implied $94,300 total company value · 3 tranches: $15,100 + $15,100 + $26,400</span>
+      </span>
+    </div>
+    <div class="cell c3">
+      <span class="vi">
+        <span class="total-num">2 tỷ VNĐ</span>
+        <span class="total-sub">~$76K · Implied 3,3 tỷ toàn cty</span>
+      </span>
+      <span class="en">
+        <span class="total-num">$75,500</span>
+        <span class="total-sub">~$76K · Implied $124,500 total company value</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2: NHÂN SỰ ══ -->
+  <div class="sec-label">
+    <div class="sec-label-cell">
+      <span class="vi">👥 NHÂN SỰ & KIỂM SOÁT</span>
+      <span class="en">👥 PERSONNEL & CONTROL</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Kiểm soát GE từ ngày 1</span>
+      <span class="en">GE Control from Day 1</span>
+    </div>
+    <div class="cell c1">
+      <span class="vi">✅ Board 2/3 ghế ngay khi ký</span>
+      <span class="en">✅ Board 2/3 seats upon signing</span>
+    </div>
+    <div class="cell c2">
+      <span class="vi">⚠️ Quyền phủ quyết chi tiêu &gt;50tr<br>+ COO vào vận hành trực tiếp</span>
+      <span class="en">⚠️ Veto on spending &gt;$1,900<br>+ COO joins operations directly</span>
+    </div>
+    <div class="cell c3">
+      <span class="vi">✅ Board 2/3 ghế ngay khi ký</span>
+      <span class="en">✅ Board 2/3 seats upon signing</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">COO (anh) vào khi nào</span>
+      <span class="en">When Does COO Join</span>
+    </div>
+    <div class="cell c1">
+      <span class="vi">Ngay ngày 1 sau ký SPA</span>
+      <span class="en">Day 1 after SPA signing</span>
+    </div>
+    <div class="cell c2">
+      <span class="vi">Ngay ngày 1 — làm thật, không quan sát</span>
+      <span class="en">Day 1 — operating directly, not observing</span>
+    </div>
+    <div class="cell c3">
+      <span class="vi">Ngay ngày 1 sau ký</span>
+      <span class="en">Day 1 after signing</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Vai trò founder</span>
+      <span class="en">Founder's Role</span>
+    </div>
+    <div class="cell c1">
+      <span class="vi">CEO — lương 25–30tr/tháng<br>+ Performance Bonus doanh thu</span>
+      <span class="en">CEO — salary $945–$1,130/month<br>+ revenue performance bonus</span>
+    </div>
+    <div class="cell c2">
+      <span class="vi">Tiếp tục điều hành toàn phần<br><span style="font-size:11.5px;color:var(--text-muted)">Quyết định lớn cần đồng thuận GE</span></span>
+      <span class="en">Continues full operations<br><span style="font-size:11.5px;color:var(--text-muted)">Major decisions require GE approval</span></span>
+    </div>
+    <div class="cell c3">
+      <span class="vi">Tiếp tục điều hành<br><span style="font-size:11.5px;color:var(--text-muted)">Earn-out gắn với kết quả cá nhân</span></span>
+      <span class="en">Continues operations<br><span style="font-size:11.5px;color:var(--text-muted)">Earn-out tied to personal performance</span></span>
+    </div>
+  </div>
+
+  <div class="row sec-last">
+    <div class="cell-label">CFO</div>
+    <div class="cell c1">
+      <span class="vi">Tuyển trong 3 tháng đầu</span>
+      <span class="en">Hired within first 3 months</span>
+    </div>
+    <div class="cell c2">
+      <span class="vi">Kế toán GE kiểm soát tài chính ngay</span>
+      <span class="en">GE accountant controls finances immediately</span>
+    </div>
+    <div class="cell c3">
+      <span class="vi">Tuyển trong 3 tháng đầu</span>
+      <span class="en">Hired within first 3 months</span>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3: CHIẾN LƯỢC ══ -->
+  <div class="sec-label">
+    <div class="sec-label-cell">
+      <span class="vi">🎯 GIẢI PHÁP CHIẾN LƯỢC — ĐÁNH VÀO ĐÚNG NỖI ĐAU</span>
+      <span class="en">🎯 STRATEGIC SOLUTIONS — ADDRESSING CORE PAIN POINTS</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <div class="vi">Bài toán mở rộng<em>Vấn đề lớn nhất của HI</em></div>
+      <div class="en">Expansion Challenge<em>HI's Biggest Problem</em></div>
+    </div>
+    <div class="cell c1">
+      <ul class="bl vi">
+        <li>Tách đội giữ sân nhà vs đội mở địa bàn mới — không dùng chung nhân sự như trước</li>
+        <li>Không mở vùng mới khi logistics chưa bền vững</li>
+        <li>Chia sẻ rủi ro expand: founder dùng vốn tự có + cash HI burn trước; GE bổ sung phần còn thiếu — tránh mở rộng bất chấp, giảm tổng vốn GE phải bỏ ra</li>
+      </ul>
+      <ul class="bl en">
+        <li>Separate team for core operations vs. new territory expansion — no shared staffing as before</li>
+        <li>No new territory until logistics model is proven sustainable</li>
+        <li>Shared expansion risk: founder uses own capital + HI cash first; GE tops up the gap — prevents reckless growth and reduces GE's total capital outlay</li>
+      </ul>
+    </div>
+    <div class="cell c2">
+      <ul class="bl vi">
+        <li>Thử nghiệm 1–2 quận mới trong 6 tháng — chia sẻ rủi ro: founder dùng vốn tự có + cash HI; GE bổ sung phần còn thiếu → founder có skin in the game, không mở rộng bất chấp</li>
+        <li>Audit logistics model trước khi mở rộng tiếp</li>
+        <li>Kết quả thực tế làm cơ sở định giá CĐ</li>
+      </ul>
+      <ul class="bl en">
+        <li>Pilot 1–2 new districts over 6 months — shared risk: founder uses own capital + HI cash; GE tops up the gap → founder has skin in the game, no reckless expansion</li>
+        <li>Audit logistics model before further expansion</li>
+        <li>Actual results form the basis for conversion valuation</li>
+      </ul>
+    </div>
+    <div class="cell c3">
+      <ul class="bl vi">
+        <li>Mở 2 quận mới theo cơ chế chia sẻ rủi ro — founder dùng vốn tự có + cash HI burn; GE bổ sung phần thiếu hụt (milestone earn-out #3)</li>
+        <li>COO thiết kế chiến lược tăng trưởng đến 3,5 tỷ năm 1</li>
+        <li>Founder không tự chạy milestone — GE đồng hành trực tiếp</li>
+      </ul>
+      <ul class="bl en">
+        <li>Open 2 new districts via shared-risk structure — founder uses own capital + HI cash; GE tops up the gap (earn-out milestone #3)</li>
+        <li>COO designs growth strategy toward $132K revenue in Year 1</li>
+        <li>Founder doesn't run milestones alone — GE co-executes directly</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Giữ người &amp; chống copy-cat</span>
+      <span class="en">Retention &amp; Anti-Copycat</span>
+    </div>
+    <div class="cell c1">
+      <ul class="bl vi">
+        <li>Non-compete nhân viên 2 năm binding</li>
+        <li>Lộ trình thăng tiến rõ ràng</li>
+        <li>Phantom equity cho nhân sự chủ chốt</li>
+      </ul>
+      <ul class="bl en">
+        <li>2-year binding employee non-compete</li>
+        <li>Clear career advancement roadmap</li>
+        <li>Phantom equity for key personnel</li>
+      </ul>
+    </div>
+    <div class="cell c2">
+      <ul class="bl vi">
+        <li>Thiết kế culture &amp; career path trong 6 tháng đầu</li>
+        <li>Non-compete nhân viên đưa vào ngay khi onboard lại</li>
+      </ul>
+      <ul class="bl en">
+        <li>Build culture &amp; career path design in first 6 months</li>
+        <li>Employee non-compete signed immediately upon re-onboarding</li>
+      </ul>
+    </div>
+    <div class="cell c3">
+      <ul class="bl vi">
+        <li>Non-compete nhân viên 2 năm binding</li>
+        <li>Xây hệ thống giữ người song song với earn-out period</li>
+      </ul>
+      <ul class="bl en">
+        <li>2-year binding employee non-compete</li>
+        <li>Build retention system in parallel with earn-out period</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row sec-last">
+    <div class="cell-label">
+      <span class="vi">Hệ thống &amp; nhân bản mô hình</span>
+      <span class="en">Systems &amp; Model Replication</span>
+    </div>
+    <div class="cell c1">
+      <ul class="bl vi">
+        <li>COO đóng gói quy trình thành playbook nhân bản được</li>
+        <li>Audit &amp; tối ưu margin trước khi expand</li>
+      </ul>
+      <ul class="bl en">
+        <li>COO packages operations into a replicable playbook</li>
+        <li>Audit &amp; optimize margin before expansion</li>
+      </ul>
+    </div>
+    <div class="cell c2">
+      <ul class="bl vi">
+        <li>Ưu tiên #1: đóng gói toàn bộ quy trình vận hành trong 6 tháng</li>
+        <li>Tìm và bịt chi phí rò rỉ — tối ưu margin hiện tại</li>
+      </ul>
+      <ul class="bl en">
+        <li>Priority #1: package all operating processes within 6 months</li>
+        <li>Identify and plug cost leaks — optimize current margin</li>
+      </ul>
+    </div>
+    <div class="cell c3">
+      <ul class="bl vi">
+        <li>Milestone "hệ thống vận hành độc lập" do GE xây</li>
+        <li>Founder được earn-out khi tạo điều kiện cho GE xây thành công</li>
+      </ul>
+      <ul class="bl en">
+        <li>"Independent operating system" milestone built by GE</li>
+        <li>Founder earns earn-out by enabling GE to build successfully</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4: CÔNG NGHỆ ══ -->
+  <div class="sec-label">
+    <div class="sec-label-cell">
+      <span class="vi">🔬 CÔNG NGHỆ — GE ĐẦU TƯ BẤT KỂ DEAL</span>
+      <span class="en">🔬 TECHNOLOGY — GE INVESTS REGARDLESS OF DEAL STRUCTURE</span>
+    </div>
+  </div>
+
+  <div class="row sec-last">
+    <div class="cell-label">
+      <span class="vi">Roadmap triển khai</span>
+      <span class="en">Implementation Roadmap</span>
+    </div>
+    <div class="cell c1">
+      <ul class="bl vi">
+        <li>Tháng 1–3: Hệ thống đồng bộ dữ liệu khám mắt</li>
+        <li>Tháng 3–6: Thiết bị kết nối số thay quy trình giấy</li>
+        <li>Data 36K lượt/năm → tài sản dài hạn</li>
+      </ul>
+      <ul class="bl en">
+        <li>Month 1–3: Eye exam data synchronization system</li>
+        <li>Month 3–6: Digital-connected equipment replacing paper processes</li>
+        <li>Data: 36K visits/year → long-term strategic asset</li>
+      </ul>
+    </div>
+    <div class="cell c2">
+      <ul class="bl vi">
+        <li>Triển khai song song trong 6 tháng thử nghiệm</li>
+        <li>Kết quả tech = minh chứng giá trị GE mang vào</li>
+      </ul>
+      <ul class="bl en">
+        <li>Deployed in parallel during the 6-month trial period</li>
+        <li>Tech results = proof of value that GE brings to the table</li>
+      </ul>
+    </div>
+    <div class="cell c3">
+      <ul class="bl vi">
+        <li>Tháng 1–3: Hệ thống đồng bộ dữ liệu</li>
+        <li>Tech hỗ trợ trực tiếp việc đạt milestone doanh thu</li>
+      </ul>
+      <ul class="bl en">
+        <li>Month 1–3: Data synchronization system</li>
+        <li>Tech directly supports hitting revenue milestones</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 5: RỦI RO ══ -->
+  <div class="sec-label">
+    <div class="sec-label-cell">
+      <span class="vi">⚠️ RỦI RO & BẢO VỆ GE</span>
+      <span class="en">⚠️ RISKS & GE PROTECTION</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Chia sẻ rủi ro expand</span>
+      <span class="en">Expansion Risk Sharing</span>
+    </div>
+    <div class="cell c1">
+      <span class="vi">Founder dùng vốn tự có + cash HI để burn chi phí mở rộng; GE bổ sung phần còn lại — <strong>founder có rủi ro thật, không mở bất chấp</strong></span>
+      <span class="en">Founder uses own capital + HI cash to fund expansion costs; GE tops up the remainder — <strong>founder bears real risk, preventing reckless growth</strong></span>
+    </div>
+    <div class="cell c2">
+      <span class="vi">Chia sẻ rủi ro: founder dùng vốn tự có + cash HI burn trước trong 6 tháng thử nghiệm; GE góp thêm phần thiếu hụt — <strong>founder có skin in the game, không mở rộng bất chấp</strong></span>
+      <span class="en">Shared risk: founder uses own capital + HI cash to burn first in 6-month trial; GE contributes the shortfall — <strong>founder has skin in the game, no reckless expansion</strong></span>
+    </div>
+    <div class="cell c3">
+      <span class="vi">Founder bỏ vốn tự có + cash HI vào expansion; GE bổ sung — <strong>founder được earn-out khi thành công, nhưng vẫn chịu rủi ro phần vốn mình bỏ ra</strong></span>
+      <span class="en">Founder puts in own capital + HI cash for expansion; GE supplements — <strong>founder earns earn-out on success, but still bears risk on their invested capital</strong></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Mức độ rủi ro GE</span>
+      <span class="en">GE Risk Level</span>
+    </div>
+    <div class="cell c1">
+      <span class="r-low vi">● Thấp</span>
+      <span class="r-low en">● Low</span>
+    </div>
+    <div class="cell c2">
+      <span class="r-mid vi">● Trung bình</span>
+      <span class="r-mid en">● Medium</span>
+    </div>
+    <div class="cell c3">
+      <span class="r-mid vi">● Trung bình</span>
+      <span class="r-mid en">● Medium</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Rủi ro chính</span>
+      <span class="en">Key Risk</span>
+    </div>
+    <div class="cell c1">
+      <span class="vi">Founder đòi định giá cao hơn con số upfront</span>
+      <span class="en">Founder demands higher valuation than the upfront amount</span>
+    </div>
+    <div class="cell c2">
+      <span class="vi">Founder học xong không chuyển đổi cổ phần</span>
+      <span class="en">Founder learns from GE without converting to equity</span>
+    </div>
+    <div class="cell c3">
+      <span class="vi">Founder giảm động lực trong earn-out period</span>
+      <span class="en">Founder loses motivation during the earn-out period</span>
+    </div>
+  </div>
+
+  <div class="row sec-last">
+    <div class="cell-label">
+      <span class="vi">Bảo vệ GE</span>
+      <span class="en">GE Protection</span>
+    </div>
+    <div class="cell c1">
+      <ul class="bl vi">
+        <li>Đợt 2 gắn với 3 điều kiện chuyển giao cụ thể</li>
+        <li>Key-person clause: mua lại 40% theo giá công thức nếu founder rời trong 24 tháng</li>
+      </ul>
+      <ul class="bl en">
+        <li>Tranche 2 tied to 3 specific handover conditions</li>
+        <li>Key-person clause: GE acquires remaining 40% at formula price if founder exits within 24 months</li>
+      </ul>
+    </div>
+    <div class="cell c2">
+      <ul class="bl vi">
+        <li>Hoàn vốn + lãi 15%/năm nếu không CĐ</li>
+        <li>Phủ quyết chi tiêu &gt;50tr</li>
+        <li>Định giá CĐ bởi bên thứ 3 nếu bất đồng</li>
+      </ul>
+      <ul class="bl en">
+        <li>Capital return + 15%/year interest if no conversion</li>
+        <li>Veto on any spending &gt;$1,900</li>
+        <li>Conversion valuation by independent third party if disputed</li>
+      </ul>
+    </div>
+    <div class="cell c3">
+      <ul class="bl vi">
+        <li>Earn-out forfeit toàn bộ nếu founder rời/giảm engagement</li>
+        <li>Doanh thu tính theo kiểm toán độc lập</li>
+        <li>"Giảm engagement" định nghĩa rõ trong HĐ</li>
+      </ul>
+      <ul class="bl en">
+        <li>Full earn-out forfeiture if founder exits or reduces engagement</li>
+        <li>Revenue calculated by independent audit</li>
+        <li>"Reduced engagement" clearly defined in contract</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 6: CHIẾN THUẬT ══ -->
+  <div class="sec-label">
+    <div class="sec-label-cell">
+      <span class="vi">🎲 CHIẾN THUẬT ĐÀM PHÁN</span>
+      <span class="en">🎲 NEGOTIATION TACTICS</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="cell-label">
+      <span class="vi">Thứ tự đề xuất</span>
+      <span class="en">Proposal Sequence</span>
+    </div>
+    <div class="cell c1">
+      <span class="tag tg vi">② Dùng sau khi KB2 thành công</span>
+      <span class="tag tg en">② Use after Scenario 2 succeeds</span>
+    </div>
+    <div class="cell c2">
+      <span class="tag t2 vi">① Vào trước tiên</span>
+      <span class="tag t2 en">① First Move</span>
+    </div>
+    <div class="cell c3">
+      <span class="tag ty vi">③ Khi founder push back giá</span>
+      <span class="tag ty en">③ When founder pushes back on price</span>
+    </div>
+  </div>
+
+  <div class="row sec-last">
+    <div class="cell-label">
+      <span class="vi">Thông điệp cốt lõi</span>
+      <span class="en">Core Message</span>
+    </div>
+    <div class="cell c1">
+      <em class="vi">"Chúng tôi mua để cùng xây lớn hơn — chị vẫn là CEO, chúng tôi mang hệ thống vào"</em>
+      <em class="en">"We're buying to build something bigger together — you remain CEO, we bring the systems."</em>
+    </div>
+    <div class="cell c2">
+      <em class="vi">"Hãy để chúng tôi làm trước — rủi ro chúng tôi gánh, kết quả chứng minh tất cả"</em>
+      <em class="en">"Let us act first — we shoulder the risk, results will speak for themselves."</em>
+    </div>
+    <div class="cell c3">
+      <em class="vi">"Chị tin HI xứng đáng hơn — chúng tôi đồng ý, và sẽ trả đúng khi kết quả đến"</em>
+      <em class="en">"You believe HI deserves more — we agree, and we'll pay accordingly when results arrive."</em>
+    </div>
+  </div>
+
+</div><!-- /outer -->
+
+<!-- BOTTOM CARDS -->
+<div class="bottom">
+  <div class="bcard">
+    <div class="bcard-hdr">
+      <span class="vi">📋 Điều khoản bắt buộc — cả 3 kịch bản</span>
+      <span class="en">📋 Mandatory Clauses — All 3 Scenarios</span>
+    </div>
+    <div class="bcard-body">
+      <table class="clause-table">
+        <tr>
+          <td><span class="vi">Non-compete founder</span><span class="en">Founder Non-Compete</span></td>
+          <td><span class="vi">3 năm, bán kính 50km</span><span class="en">3 years, 50km radius</span></td>
+        </tr>
+        <tr>
+          <td>Non-solicitation</td>
+          <td><span class="vi">Không lôi kéo nhân viên HI sau khi rời</span><span class="en">No poaching of HI staff after departure</span></td>
+        </tr>
+        <tr>
+          <td><span class="vi">IP &amp; Data ownership</span><span class="en">IP &amp; Data Ownership</span></td>
+          <td><span class="vi">Danh sách trường, dữ liệu HS, quy trình → thuộc pháp nhân HI</span><span class="en">School list, student data, operating processes → owned by HI entity</span></td>
+        </tr>
+        <tr>
+          <td><span class="vi">Key-person clause</span><span class="en">Key-Person Clause</span></td>
+          <td><span class="vi">Founder rời trong 24 tháng → GE mua 40% còn lại theo giá công thức</span><span class="en">Founder exits within 24 months → GE acquires remaining 40% at formula price</span></td>
+        </tr>
+        <tr>
+          <td><span class="vi">Board structure</span><span class="en">Board Structure</span></td>
+          <td><span class="vi">GE nắm 2/3 ghế board từ ngày 1</span><span class="en">GE holds 2/3 of board seats from day 1</span></td>
+        </tr>
+        <tr>
+          <td><span class="vi">Non-compete nhân viên</span><span class="en">Employee Non-Compete</span></td>
+          <td><span class="vi">Toàn bộ nhân sự HI ký non-compete 2 năm khi onboard lại sau deal</span><span class="en">All HI staff sign 2-year non-compete upon re-onboarding post-deal</span></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="bcard">
+    <div class="bcard-hdr">
+      <span class="vi">💡 Khuyến nghị chiến thuật nội bộ</span>
+      <span class="en">💡 Internal Tactical Recommendations</span>
+    </div>
+    <div class="bcard-body">
+      <ul class="tactic-list">
+        <li>
+          <span class="vi"><strong>Luôn trình bày phi tài chính TRƯỚC</strong> — founder HI xúc động với cam kết đồng hành &amp; chia sẻ rủi ro, không phải với con số upfront.</span>
+          <span class="en"><strong>Always present the non-financial case FIRST</strong> — HI's founder responds to partnership commitment &amp; shared risk, not to upfront numbers.</span>
+        </li>
+        <li>
+          <span class="vi"><strong>KB2 vào trước</strong> — founder chưa có tư duy "bán công ty". Để 6 tháng thực tế làm công việc thuyết phục.</span>
+          <span class="en"><strong>Scenario 2 goes first</strong> — founder doesn't yet think in terms of "selling the company." Let 6 months of reality do the convincing.</span>
+        </li>
+        <li>
+          <span class="vi"><strong>KB1 diễn ra tự nhiên</strong> sau khi trust được xây trong KB2 — không cần ép.</span>
+          <span class="en"><strong>Scenario 1 happens naturally</strong> once trust is built through Scenario 2 — no need to push.</span>
+        </li>
+        <li>
+          <span class="vi"><strong>KB3 chỉ dùng</strong> khi founder chủ động đưa ra con số cao hơn.</span>
+          <span class="en"><strong>Scenario 3 only</strong> when founder proactively names a higher number.</span>
+        </li>
+      </ul>
+      <div class="warn-box">
+        <span class="vi"><strong>Lưu ý:</strong> Không vào bằng KB1 ngay trừ khi founder chủ động nói cần tiền. Hiện tại chị không có áp lực tài chính — cảm giác "bị mua" sẽ tạo kháng cự ngay lập tức.</span>
+        <span class="en"><strong>Note:</strong> Do not open with Scenario 1 unless the founder proactively signals a need for cash. She currently faces no financial pressure — the feeling of "being bought out" will trigger immediate resistance.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleLang() {
+  const body = document.body;
+  const isVi = body.classList.contains('lang-vi');
+  body.classList.toggle('lang-vi', !isVi);
+  body.classList.toggle('lang-en', isVi);
+  document.documentElement.lang = isVi ? 'en' : 'vi';
+}
+</script>
+
+</body>
+</html>
